@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                Image
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -39,6 +42,13 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="@item.ImageUrl"
+                             style="object-fit:cover;" />
+                    }
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

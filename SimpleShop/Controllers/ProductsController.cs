@@ -7,17 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SimpleShop.Data;
 using SimpleShop.Models.Entities;
+using SimpleShop.Services.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 
 namespace SimpleShop.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IImageService _imageService;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(
+            ApplicationDbContext context,
+            IImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
+
 
         // GET: Products
         public async Task<IActionResult> Index()
@@ -53,14 +60,20 @@ namespace SimpleShop.Controllers
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Stock,ImageUrl,CreatedAt,CategoryId")] Product product)
+        public async Task<IActionResult> Create(
+            [Bind("Id,Name,Description,Price,Stock,ImageUrl,CreatedAt,CategoryId")] Product product, IFormFile? imageFile)
         {
             if (ModelState.IsValid)
             {
+                var imagePath = await _imageService.SaveImageAsync(imageFile);
+
+                if (imagePath != null)
+                {
+                    product.ImageUrl = imagePath;
+                }
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

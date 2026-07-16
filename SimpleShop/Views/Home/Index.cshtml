@@ -14,9 +14,18 @@
 
             <div class="card h-100 shadow-sm">
 
-                <img src="https://placehold.co/600x400"
-                     class="card-img-top"
-                     alt="@item.Name">
+                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                {
+                    <img src="@item.ImageUrl"
+                         class="card-img-top"
+                         alt="@item.Name>
+                }
+                else
+                {
+                    <img src="https://placehold.co/600x400"
+                         class="card-img-top"
+                         alt="@item.Name">
+                }
 
                 <div class="card-body">
 
