@@ -1,14 +1,27 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleShop.Models;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using SimpleShop.Data;
 
 namespace SimpleShop.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var products = await _context.Products
+                .Include(p => p.Category)
+                .ToListAsync();
+
+            return View(products);
         }
 
         public IActionResult Privacy()
