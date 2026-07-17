@@ -114,4 +114,12 @@ public class CartService
             CartSessionKey,
             cartJson);
     }
+
+
+    public int GetCartCount()
+    {
+        var cart = GetCart();
+
+        return cart.Items.Sum(x => x.Quantity);
+    }
 }

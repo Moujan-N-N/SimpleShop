@@ -1,0 +1,17 @@
+﻿@model int
+
+
+<a asp-controller="Cart"
+   asp-action="Index"
+   class="nav-link">
+
+    🛒 Cart
+
+    @if (Model > 0)
+    {
+        <span class="badge bg-danger">
+            @Model
+        </span>
+    }
+
+</a>
