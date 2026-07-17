@@ -1,9 +1,8 @@
-﻿@model SimpleShop.Models.Entities.Product
+﻿@model SimpleShop.ViewModels.Product.CreateProductViewModel
 
 @{
     ViewData["Title"] = "Create Product";
 }
-
 
 <div class="container py-4">
 
@@ -79,7 +78,7 @@
 
 
 
-                <div class="mb-3 mt-3">
+               @*  <div class="mb-3 mt-3">
 
                     <label class="form-label">
                         Image URL
@@ -88,22 +87,27 @@
                     <input asp-for="ImageUrl"
                            class="form-control" />
 
-                </div>
+                </div> *@
 
 
 
                 <div class="mb-3">
 
-                    <label class="form-label">
-                        Category Id
+                    <label asp-for="CategoryId"
+                           class="form-label">
                     </label>
 
-                    <input asp-for="CategoryId"
-                           class="form-control" />
+                    <select asp-for="CategoryId"
+                            asp-items="@(new SelectList(Model.Categories, "Value", "Text"))"
+                            class="form-select">
+                        <option value="">-- Select Category --</option>
+                    </select>
+
+                    <span asp-validation-for="CategoryId"
+                          class="text-danger">
+                    </span>
 
                 </div>
-
-
 
                 <button type="submit"
                         class="btn btn-danger">

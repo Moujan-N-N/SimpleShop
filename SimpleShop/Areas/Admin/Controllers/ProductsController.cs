@@ -2,6 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleShop.Models.Entities;
 using SimpleShop.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using SimpleShop.Data;
+using SimpleShop.ViewModels.Product;
 
 namespace SimpleShop.Areas.Admin.Controllers;
 
@@ -10,11 +14,15 @@ namespace SimpleShop.Areas.Admin.Controllers;
 public class ProductsController : Controller
 {
     private readonly IProductService _productService;
+    private readonly ApplicationDbContext _context;
 
 
-    public ProductsController(IProductService productService)
+    public ProductsController(
+     IProductService productService,
+     ApplicationDbContext context)
     {
         _productService = productService;
+        _context = context;
     }
 
 
@@ -29,9 +37,23 @@ public class ProductsController : Controller
 
 
     [HttpGet]
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
-        return View();
+        var viewModel = new CreateProductViewModel();
+
+        viewModel.Categories = await _context.Categories
+            .Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            })
+            .ToListAsync();
+
+        var categories = await _context.Categories.ToListAsync();
+
+        var count = categories.Count;
+
+        return View(viewModel);
     }
 
 
