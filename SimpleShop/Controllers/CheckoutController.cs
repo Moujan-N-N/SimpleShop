@@ -3,6 +3,7 @@ using SimpleShop.Data;
 using SimpleShop.Models.Entities;
 using SimpleShop.Models.ViewModels;
 using SimpleShop.Services;
+using System.Security.Claims;
 
 namespace SimpleShop.Controllers;
 
@@ -54,8 +55,16 @@ public class CheckoutController : Controller
         var cart = _cartService.GetCart();
 
 
+        var userId = User.FindFirstValue(
+    ClaimTypes.NameIdentifier);
+
+
+
         var order = new Order
         {
+            UserId = userId,
+
+
             CustomerName = model.CustomerName,
 
             PhoneNumber = model.PhoneNumber,

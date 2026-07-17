@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using SimpleShop.Data;
 using SimpleShop.Services;
 using SimpleShop.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using SimpleShop.Models.Entities;
 
 
 
@@ -24,6 +26,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
 
 
 var app = builder.Build();
@@ -40,6 +46,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapStaticAssets();
 
