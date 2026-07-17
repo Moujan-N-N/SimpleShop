@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SimpleShop</title>
+    <title>@ViewData["Title"] - 🛒 SimpleShop</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -17,24 +17,30 @@
                 <a class="nav-link text-dark"
                    asp-controller="Home"
                    asp-action="Index">
-                    Shop
+                    🏠 Home
                 </a>
 
 
                 <a class="nav-link text-dark"
                    asp-controller="Products"
                    asp-action="Index">
-                    Products
+                    📦 Products
                 </a>
 
 
                 <a class="nav-link text-dark"
                    asp-controller="Categories"
                    asp-action="Index">
-                    Categories
+                    📂 Categories
                 </a>
 
-            </div>
+
+                <a class="nav-link text-dark"
+                   asp-controller="Cart"
+                   asp-action="Index">
+                    🛒 Cart
+                </a>
+
             </div>
         </nav>
     </header>
@@ -46,7 +52,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2026 - SimpleShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            © 2026 SimpleShop | Built with ASP.NET Core MVC (.NET 10)
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
