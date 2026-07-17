@@ -1,14 +1,19 @@
-﻿@{
+﻿@model IEnumerable<SimpleShop.Models.Entities.Product>
+
+@{
     ViewData["Title"] = "Manage Products";
 }
-@model IEnumerable<SimpleShop.Models.Entities.Product>
+
+
 <div class="container py-4">
+
 
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <h2 class="fw-bold">
             Manage Products
         </h2>
+
 
         <a class="btn btn-danger">
             + New Product
@@ -17,20 +22,119 @@
     </div>
 
 
+
     <div class="card shadow-sm">
 
         <div class="card-body">
 
-            <h5>
-                Products Management
-            </h5>
 
-            <p class="text-muted">
-                Add, edit and delete products from here.
-            </p>
+            <table class="table table-hover align-middle">
+
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>
+                            Image
+                        </th>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Price
+                        </th>
+
+                        <th>
+                            Stock
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+
+
+                            <td>
+
+                                <img src="@item.ImageUrl"
+                                     width="70"
+                                     height="70"
+                                     style="object-fit:contain" />
+
+                            </td>
+
+
+                            <td>
+                                @item.Name
+                            </td>
+
+
+                            <td>
+                                @item.Category?.Name
+                            </td>
+
+
+                            <td>
+
+                                @item.Price.ToString("N0")
+                                تومان
+
+                            </td>
+
+
+                            <td>
+                                @item.Stock
+                            </td>
+
+
+                            <td>
+
+                                <button class="btn btn-sm btn-outline-primary">
+                                    Edit
+                                </button>
+
+
+                                <button class="btn btn-sm btn-outline-danger">
+                                    Delete
+                                </button>
+
+
+                            </td>
+
+
+                        </tr>
+
+                    }
+
+
+                </tbody>
+
+
+            </table>
+
 
         </div>
 
     </div>
+
 
 </div>
