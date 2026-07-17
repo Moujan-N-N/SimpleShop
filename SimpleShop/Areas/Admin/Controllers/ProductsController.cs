@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SimpleShop.Services.Interfaces;
 
 namespace SimpleShop.Areas.Admin.Controllers;
 
@@ -7,9 +8,20 @@ namespace SimpleShop.Areas.Admin.Controllers;
 [Authorize(Roles = "Admin")]
 public class ProductsController : Controller
 {
-    public IActionResult Index()
+    private readonly IProductService _productService;
+
+
+    public ProductsController(IProductService productService)
     {
-        return View();
+        _productService = productService;
     }
 
+
+
+    public async Task<IActionResult> Index()
+    {
+        var products = await _productService.GetAllAsync();
+
+        return View(products);
+    }
 }

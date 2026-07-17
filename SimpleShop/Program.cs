@@ -22,6 +22,8 @@ builder.Services.AddScoped<CartService>();
 
 builder.Services.AddScoped<IImageService, ImageService>();
 
+builder.Services.AddScoped<IProductService, ProductService>();
+
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
