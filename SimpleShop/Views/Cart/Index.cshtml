@@ -57,7 +57,29 @@
                         </td>
 
                         <td>
-                            @item.Quantity
+
+                            <div class="d-flex align-items-center gap-2">
+
+                                <a asp-action="Decrease"
+                                   asp-route-id="@item.ProductId"
+                                   class="btn btn-sm btn-outline-danger">
+                                    -
+                                </a>
+
+
+                                <span class="fw-bold">
+                                    @item.Quantity
+                                </span>
+
+
+                                <a asp-action="Increase"
+                                   asp-route-id="@item.ProductId"
+                                   class="btn btn-sm btn-outline-success">
+                                    +
+                                </a>
+
+                            </div>
+
                         </td>
 
                         <td>

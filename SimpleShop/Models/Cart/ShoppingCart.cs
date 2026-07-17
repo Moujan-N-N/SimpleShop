@@ -9,6 +9,7 @@ public class ShoppingCart
         Items.Sum(x => x.TotalPrice);
 
 
+
     public void AddItem(CartItem item)
     {
         var existingItem = Items
@@ -24,6 +25,41 @@ public class ShoppingCart
             Items.Add(item);
         }
     }
+
+
+
+    public void IncreaseQuantity(int productId)
+    {
+        var item = Items
+            .FirstOrDefault(x => x.ProductId == productId);
+
+
+        if (item != null)
+        {
+            item.Quantity++;
+        }
+    }
+
+
+
+    public void DecreaseQuantity(int productId)
+    {
+        var item = Items
+            .FirstOrDefault(x => x.ProductId == productId);
+
+
+        if (item != null)
+        {
+            item.Quantity--;
+
+
+            if (item.Quantity <= 0)
+            {
+                Items.Remove(item);
+            }
+        }
+    }
+
 
 
     public void RemoveItem(int productId)

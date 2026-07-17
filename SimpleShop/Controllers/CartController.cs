@@ -60,4 +60,22 @@ public class CartController : Controller
         return RedirectToAction(
             "Index");
     }
+
+    public IActionResult Increase(int id)
+    {
+        _cartService.IncreaseQuantity(id);
+
+
+        return RedirectToAction("Index");
+    }
+
+
+
+    public IActionResult Decrease(int id)
+    {
+        _cartService.DecreaseQuantity(id);
+
+
+        return RedirectToAction("Index");
+    }
 }

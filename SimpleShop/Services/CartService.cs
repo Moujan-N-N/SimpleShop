@@ -75,6 +75,29 @@ public class CartService
         SaveCart(cart);
     }
 
+    public void IncreaseQuantity(int productId)
+    {
+        var cart = GetCart();
+
+
+        cart.IncreaseQuantity(productId);
+
+
+        SaveCart(cart);
+    }
+
+
+
+    public void DecreaseQuantity(int productId)
+    {
+        var cart = GetCart();
+
+
+        cart.DecreaseQuantity(productId);
+
+
+        SaveCart(cart);
+    }
 
 
     private void SaveCart(ShoppingCart cart)
