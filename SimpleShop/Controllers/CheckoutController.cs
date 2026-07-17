@@ -56,7 +56,15 @@ public class CheckoutController : Controller
 
         var order = new Order
         {
+            CustomerName = model.CustomerName,
+
+            PhoneNumber = model.PhoneNumber,
+
+            Address = model.Address,
+
+
             CreatedAt = DateTime.Now,
+
             TotalAmount = cart.TotalAmount
         };
 
