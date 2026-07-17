@@ -1,128 +1,43 @@
 ﻿@model IEnumerable<SimpleShop.Models.Entities.Product>
 
 @{
-    ViewData["Title"] = "Simple Shop";
+    ViewData["Title"] = "Home";
 }
 
-<h1 class="mb-4">Simple Shop</h1>
+<div class="container py-4">
 
-<div class="hero-section mb-5">
+    <!-- Hero + Categories -->
+    <div class="row g-4 mb-5">
 
-    <div class="row align-items-center">
+        <!-- Categories Sidebar -->
+        <div class="col-lg-3">
 
-        <div class="col-lg-6">
+            <div class="card shadow-sm border-0">
 
-            <span class="badge bg-danger mb-3">
-                Summer Sale
-            </span>
-
-            <h1 class="display-5 fw-bold">
-
-                Upgrade Your Tech
-
-            </h1>
-
-            <p class="lead text-muted">
-
-                Discover quality products with great prices.
-
-            </p>
-
-            <a asp-controller="Products"
-               asp-action="Index"
-               class="btn btn-danger btn-lg">
-
-                Shop Now
-
-            </a>
-
-        </div>
-
-        <div class="col-lg-6 text-center">
-
-            <img src="~/images/hero.jpg"
-                 class="img-fluid hero-image" />
-
-        </div>
-
-    </div>
-
-</div>
-
-<div class="mb-4">
-
-    <a asp-controller="Products"
-       asp-action="Create"
-       class="btn btn-success">
-
-        Add Product
-
-    </a>
-
-
-    <a asp-controller="Categories"
-       asp-action="Create"
-       class="btn btn-primary">
-
-        Add Category
-
-    </a>
-
-</div>
-
-
-
-<div class="row">
-
-    @foreach (var item in Model)
-    {
-        <div class="col-md-4 mb-4">
-
-            <div class="card h-100 shadow-sm">
-
-                @if (!string.IsNullOrEmpty(item.ImageUrl))
-                {
-                    <img src="@item.ImageUrl"
-                         class="card-img-top"
-                         alt="@item.Name>
-                }
-                else
-                {
-                    <img src="https://placehold.co/600x400"
-                         class="card-img-top"
-                         alt="@item.Name">
-                }
-
-                <div class="card-body">
-
-                    <h5 class="card-title">
-                        @item.Name
-                    </h5>
-
-                    <p class="card-text">
-                        @item.Description
-                    </p>
-
-                    <p>
-                        <strong>Category:</strong>
-                        @item.Category?.Name
-                    </p>
-
-                    <h4 class="text-success">
-                        @item.Price.ToString("N0") تومان
-                    </h4>
-
+                <div class="card-header bg-danger text-white fw-bold">
+                    Categories
                 </div>
 
-                <div class="card-footer bg-white">
+                <div class="list-group list-group-flush">
 
-                    <a asp-controller="Products"
-                       asp-action="Details"
-                       asp-route-id="@item.Id"
-                       class="btn btn-primary w-100">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        📱 Phones
+                    </a>
 
-                        View Details
+                    <a href="#" class="list-group-item list-group-item-action">
+                        💻 Laptops
+                    </a>
 
+                    <a href="#" class="list-group-item list-group-item-action">
+                        ⌚ Watches
+                    </a>
+
+                    <a href="#" class="list-group-item list-group-item-action">
+                        🎧 Headphones
+                    </a>
+
+                    <a href="#" class="list-group-item list-group-item-action">
+                        🖥 Accessories
                     </a>
 
                 </div>
@@ -130,6 +45,121 @@
             </div>
 
         </div>
-    }
+
+        <!-- Hero Banner -->
+        <div class="col-lg-9">
+
+            <div class="hero-section">
+
+                <div class="row align-items-center">
+
+                    <div class="col-lg-6">
+
+                        <span class="badge bg-danger mb-3">
+                            Summer Sale
+                        </span>
+
+                        <h1 class="display-5 fw-bold">
+                            Upgrade Your Tech
+                        </h1>
+
+                        <p class="lead text-muted">
+                            Discover quality products with great prices.
+                        </p>
+
+                        <a asp-controller="Products"
+                           asp-action="Index"
+                           class="btn btn-danger btn-lg">
+                            Shop Now
+                        </a>
+
+                    </div>
+
+                    <div class="col-lg-6 text-center">
+
+                        <img src="~/images/hero.jpg"
+                             class="img-fluid hero-image"
+                             alt="Hero" />
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Featured Products -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold">
+            🔥 Featured Products
+        </h2>
+
+        <a asp-controller="Products"
+           asp-action="Index"
+           class="btn btn-outline-danger">
+            View All
+        </a>
+
+    </div>
+
+    <div class="row g-4">
+
+        @foreach (var item in Model.Take(8))
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6">
+
+                <div class="card h-100 shadow-sm">
+
+                    <img src="@item.ImageUrl"
+                         class="card-img-top p-3"
+                         style="height:220px; object-fit:contain;" />
+
+                    <div class="card-body d-flex flex-column">
+
+                        <h5 class="card-title">
+                            @item.Name
+                        </h5>
+
+                        <p class="text-muted mb-1">
+                            @item.Description
+                        </p>
+
+                        <small class="text-secondary">
+                            Category:
+                            @item.Category?.Name
+                        </small>
+
+                        <h4 class="text-success mt-3">
+                            @item.Price.ToString("N0") تومان
+                        </h4>
+
+                        <div class="mt-auto">
+
+                            <a asp-controller="Products"
+                               asp-action="Details"
+                               asp-route-id="@item.Id"
+                               class="btn btn-outline-primary w-100 mb-2">
+                                View Details
+                            </a>
+
+                            <button class="btn btn-danger w-100">
+                                🛒 Add To Cart
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
 
 </div>
