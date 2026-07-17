@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using SimpleShop.Data;
 using SimpleShop.Models.Entities;
 using SimpleShop.Services.Interfaces;
-using Microsoft.AspNetCore.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SimpleShop.Controllers
 {
@@ -27,10 +28,54 @@ namespace SimpleShop.Controllers
 
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+              string? search,
+              int? categoryId,
+              string? sortOrder)
         {
-            var applicationDbContext = _context.Products.Include(p => p.Category);
-            return View(await applicationDbContext.ToListAsync());
+            var products = _context.Products
+                .Include(p => p.Category)
+                .AsQueryable();
+
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                products = products.Where(p =>
+                    p.Name.Contains(search));
+            }
+
+
+            if (categoryId.HasValue)
+            {
+                products = products.Where(p =>
+                    p.CategoryId == categoryId);
+            }
+
+
+            ViewData["CategoryId"] = new SelectList(
+                _context.Categories,
+                "Id",
+                "Name");
+
+            switch (sortOrder)
+            {
+                case "price_asc":
+                    products = products.OrderBy(p => p.Price);
+                    break;
+
+                case "price_desc":
+                    products = products.OrderByDescending(p => p.Price);
+                    break;
+
+                case "newest":
+                    products = products.OrderByDescending(p => p.CreatedAt);
+                    break;
+
+                default:
+                    products = products.OrderByDescending(p => p.Id);
+                    break;
+            }
+            return View(await products.ToListAsync());
         }
 
         // GET: Products/Details/5

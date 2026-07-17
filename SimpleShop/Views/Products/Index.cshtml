@@ -9,6 +9,78 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+
+<form asp-action="Index" method="get">
+
+    <div class="row mb-3">
+
+
+        <div class="col-md-4">
+
+            <input type="text"
+                   name="search"
+                   class="form-control"
+                   placeholder="Search product..." />
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <select name="categoryId"
+                    class="form-control"
+                    asp-items="ViewBag.CategoryId">
+
+                <option value="">
+                    All Categories
+                </option>
+
+            </select>
+
+        </div>
+        <div class="col-md-2">
+
+            <select name="sortOrder"
+                    class="form-control">
+
+                <option value="">
+                    Default
+                </option>
+
+                <option value="price_asc">
+                    Price: Low to High
+                </option>
+
+                <option value="price_desc">
+                    Price: High to Low
+                </option>
+
+                <option value="newest">
+                    Newest
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <button type="submit"
+                    class="btn btn-primary">
+
+                Search
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</form>
+
+
 <table class="table">
     <thead>
         <tr>
