@@ -10,5 +10,5 @@ public class CartItem
 
     public int Quantity { get; set; }
 
-    public string? ImageUrl { get; set; }
+    public decimal TotalPrice => Price * Quantity;
 }
