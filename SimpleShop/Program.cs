@@ -4,13 +4,15 @@ using SimpleShop.Services;
 using SimpleShop.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using SimpleShop.Models.Entities;
-
+using SimpleShop.Data.Seed;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddRazorPages();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -26,9 +28,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 
 
 
@@ -54,6 +60,18 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
+
+app.MapRazorPages();
+
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    await IdentitySeeder.SeedAsync(services);
+}
+
 
 
 app.Run();
