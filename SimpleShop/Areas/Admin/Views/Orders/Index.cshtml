@@ -1,0 +1,139 @@
+﻿@model IEnumerable<SimpleShop.Models.Entities.Order>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<div class="container-fluid py-4">
+
+    <h2 class="fw-bold mb-4">
+        Orders
+    </h2>
+
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Order ID
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Phone
+                            </th>
+
+                            <th>
+                                Total
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @foreach (var order in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    #@order.Id
+                                </td>
+
+                                <td>
+                                    @order.CustomerName
+                                </td>
+
+                                <td>
+                                    @order.PhoneNumber
+                                </td>
+
+                                <td>
+                                    @order.TotalAmount.ToString("N0") $
+                                </td>
+
+                                <td>
+
+                                    @if (order.Status == "Pending")
+                                    {
+                                        <span class="badge bg-warning text-dark">
+                                            Pending
+                                        </span>
+                                    }
+                                    else if (order.Status == "Processing")
+                                    {
+                                        <span class="badge bg-info">
+                                            Processing
+                                        </span>
+                                    }
+                                    else if (order.Status == "Completed")
+                                    {
+                                        <span class="badge bg-success">
+                                            Completed
+                                        </span>
+                                    }
+                                    else if (order.Status == "Cancelled")
+                                    {
+                                        <span class="badge bg-danger">
+                                            Cancelled
+                                        </span>
+                                    }
+
+                                </td>
+
+                                <td>
+                                    @order.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+                                </td>
+
+                                <td>
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@order.Id"
+                                       class="btn btn-sm btn-primary">
+
+                                        Details
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

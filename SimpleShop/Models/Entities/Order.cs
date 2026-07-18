@@ -10,6 +10,8 @@ public class Order
 
     public decimal TotalAmount { get; set; }
 
+    public string Status { get; set; } = "Pending";
+
 
     // Customer Information
     public string CustomerName { get; set; } = string.Empty;
@@ -25,4 +27,8 @@ public class Order
     // Navigation Property
     public ICollection<OrderItem> OrderItems { get; set; }
         = new List<OrderItem>();
+
+
+
+
 }
