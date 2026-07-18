@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimpleShop.Data;
 using SimpleShop.Models.Entities;
 using SimpleShop.Models.ViewModels;
@@ -22,7 +23,6 @@ public class CheckoutController : Controller
     }
 
 
-
     [HttpGet]
     public IActionResult Index()
     {
@@ -41,9 +41,9 @@ public class CheckoutController : Controller
     }
 
 
-
     [HttpPost]
-    public IActionResult Index(
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Index(
         CheckoutViewModel model)
     {
         if (!ModelState.IsValid)
@@ -55,22 +55,27 @@ public class CheckoutController : Controller
         var cart = _cartService.GetCart();
 
 
-        var userId = User.FindFirstValue(
-    ClaimTypes.NameIdentifier);
+        if (!cart.Items.Any())
+        {
+            return RedirectToAction(
+                "Index",
+                "Cart");
+        }
 
+
+        var userId = User.FindFirstValue(
+            ClaimTypes.NameIdentifier);
 
 
         var order = new Order
         {
             UserId = userId,
 
-
             CustomerName = model.CustomerName,
 
             PhoneNumber = model.PhoneNumber,
 
             Address = model.Address,
-
 
             CreatedAt = DateTime.Now,
 
@@ -80,10 +85,29 @@ public class CheckoutController : Controller
 
         foreach (var item in cart.Items)
         {
+            var product = await _context.Products
+                .FindAsync(item.ProductId);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            if (product.Stock < item.Quantity)
+            {
+                ModelState.AddModelError(
+                    "",
+                    $"Not enough stock for {product.Name}.");
+
+                return View(model);
+            }
+
+            product.Stock -= item.Quantity;
+
             order.OrderItems.Add(
                 new OrderItem
                 {
-                    ProductId = item.ProductId,
+                    ProductId = product.Id,
                     Quantity = item.Quantity,
                     Price = item.Price
                 });
@@ -93,7 +117,7 @@ public class CheckoutController : Controller
         _context.Orders.Add(order);
 
 
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
 
         HttpContext.Session.Remove("Cart");
@@ -101,14 +125,17 @@ public class CheckoutController : Controller
 
         return RedirectToAction(
             "Success",
-            new { id = order.Id });
+            new
+            {
+                id = order.Id
+            });
     }
-
 
 
     public IActionResult Success(int id)
     {
         ViewBag.OrderId = id;
+
 
         return View();
     }

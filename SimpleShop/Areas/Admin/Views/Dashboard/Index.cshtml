@@ -2,17 +2,146 @@
     ViewData["Title"] = "Admin Dashboard";
 }
 
-<div class="container py-5">
+<div class="container-fluid py-4">
 
-    <h1 class="fw-bold">
+    <h2 class="fw-bold mb-4">
         Admin Dashboard
-    </h1>
+    </h2>
 
-    <hr />
+    <div class="row g-4">
 
-    <div class="alert alert-success">
+        <!-- Products -->
 
-        Welcome Admin 👋
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">
+                        Products
+                    </h6>
+
+                    <h2 class="fw-bold">
+                        @ViewBag.ProductCount
+                    </h2>
+
+                    <a asp-area="Admin"
+                       asp-controller="Products"
+                       asp-action="Index"
+                       class="btn btn-sm btn-outline-primary">
+
+                        Manage Products
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Categories -->
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">
+                        Categories
+                    </h6>
+
+                    <h2 class="fw-bold">
+                        @ViewBag.CategoryCount
+                    </h2>
+
+                    <a asp-area="Admin"
+                       asp-controller="Categories"
+                       asp-action="Index"
+                       class="btn btn-sm btn-outline-primary">
+
+                        Manage Categories
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Users -->
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">
+                        Users
+                    </h6>
+
+                    <h2 class="fw-bold">
+                        @ViewBag.UserCount
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Orders -->
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">
+                        Orders
+                    </h6>
+
+                    <h2 class="fw-bold">
+                        @ViewBag.OrderCount
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card shadow-sm border-0 mt-5">
+
+        <div class="card-body">
+
+            <h4 class="fw-bold">
+                Quick Actions
+            </h4>
+
+            <hr />
+
+            <a asp-area="Admin"
+               asp-controller="Products"
+               asp-action="Create"
+               class="btn btn-primary">
+
+                + Add New Product
+
+            </a>
+
+        </div>
 
     </div>
 

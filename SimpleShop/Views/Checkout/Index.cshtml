@@ -4,7 +4,6 @@
     ViewData["Title"] = "Checkout";
 }
 
-
 <div class="container py-5">
 
     <h2 class="mb-4">
@@ -12,59 +11,120 @@
     </h2>
 
 
-    <form asp-action="Index"
-          method="post">
+    <div class="row">
+
+        <div class="col-md-7">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <form asp-action="Index"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
 
 
-        <div class="mb-3">
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3">
+                        </div>
 
-            <label class="form-label">
-                Full Name
-            </label>
 
-            <input asp-for="CustomerName"
-                   class="form-control" />
+                        <div class="mb-3">
+
+                            <label asp-for="CustomerName"
+                                   class="form-label">
+
+                            </label>
+
+
+                            <input asp-for="CustomerName"
+                                   class="form-control" />
+
+
+                            <span asp-validation-for="CustomerName"
+                                  class="text-danger">
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label asp-for="PhoneNumber"
+                                   class="form-label">
+
+                            </label>
+
+
+                            <input asp-for="PhoneNumber"
+                                   class="form-control" />
+
+
+                            <span asp-validation-for="PhoneNumber"
+                                  class="text-danger">
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label asp-for="Address"
+                                   class="form-label">
+
+                            </label>
+
+
+                            <textarea asp-for="Address"
+                                      class="form-control"
+                                      rows="4">
+
+                            </textarea>
+
+
+                            <span asp-validation-for="Address"
+                                  class="text-danger">
+
+                            </span>
+
+                        </div>
+
+
+                        <button type="submit"
+                                class="btn btn-success btn-lg">
+
+                            Confirm Order
+
+                        </button>
+
+
+                        <a asp-controller="Cart"
+                           asp-action="Index"
+                           class="btn btn-outline-secondary btn-lg ms-2">
+
+                            Back to Cart
+
+                        </a>
+
+                    </form>
+
+                </div>
+
+            </div>
 
         </div>
 
-
-
-        <div class="mb-3">
-
-            <label class="form-label">
-                Phone Number
-            </label>
-
-            <input asp-for="PhoneNumber"
-                   class="form-control" />
-
-        </div>
-
-
-
-        <div class="mb-3">
-
-            <label class="form-label">
-                Address
-            </label>
-
-            <textarea asp-for="Address"
-                      class="form-control"
-                      rows="4">
-            </textarea>
-
-        </div>
-
-
-
-        <button type="submit"
-                class="btn btn-danger btn-lg">
-
-            Confirm Order
-
-        </button>
-
-
-    </form>
+    </div>
 
 </div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync(
+            "_ValidationScriptsPartial");
+    }
+}
