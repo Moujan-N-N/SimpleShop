@@ -16,7 +16,9 @@
         <div class="card-body">
 
 
-            <form asp-action="Create" method="post">
+            <form asp-action="Create"
+                   method="post"
+                   enctype="multipart/form-data">
 
 
                 <div class="mb-3">
@@ -77,19 +79,20 @@
                 </div>
 
 
-
-               @*  <div class="mb-3 mt-3">
-
-                    <label class="form-label">
-                        Image URL
+                <div class="mb-3">
+                    <label asp-for="ImageFile" class="form-label">
+                        Product Image
                     </label>
 
-                    <input asp-for="ImageUrl"
-                           class="form-control" />
+                    <input asp-for="ImageFile"
+                           type="file"
+                           class="form-control"
+                           accept="image/*" />
 
-                </div> *@
-
-
+                    <span asp-validation-for="ImageFile"
+                          class="text-danger">
+                    </span>
+                </div>
 
                 <div class="mb-3">
 
