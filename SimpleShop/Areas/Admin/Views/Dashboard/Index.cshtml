@@ -90,6 +90,15 @@
                         @ViewBag.UserCount
                     </h2>
 
+                    <a asp-area="Admin"
+                       asp-controller="Users"
+                       asp-action="Index"
+                       class="btn btn-sm btn-outline-primary">
+
+                        Manage Users
+
+                    </a>
+
                 </div>
 
             </div>
@@ -106,12 +115,24 @@
                 <div class="card-body">
 
                     <h6 class="text-muted">
-                        Orders
+                       
+                            Orders
+
                     </h6>
 
                     <h2 class="fw-bold">
                         @ViewBag.OrderCount
                     </h2>
+
+
+                    <a asp-area="Admin"
+                       asp-controller="Orders"
+                       asp-action="Index"
+                       class="btn btn-sm btn-outline-primary">
+
+                        Manage Orders
+
+                    </a>
 
                 </div>
 
