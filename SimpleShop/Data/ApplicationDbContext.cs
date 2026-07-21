@@ -15,7 +15,7 @@ public class ApplicationDbContext
     }
 
 
-    public DbSet<Category> Categories { get; set; }
+    public DbSet<Category> Category { get; set; }
 
 
     public DbSet<Product> Products { get; set; }
@@ -25,4 +25,13 @@ public class ApplicationDbContext
 
 
     public DbSet<OrderItem> OrderItems { get; set; }
+
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Category>()
+            .ToTable("Categories");
+    }
 }

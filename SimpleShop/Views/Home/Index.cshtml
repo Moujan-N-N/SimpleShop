@@ -20,25 +20,47 @@
 
                 <div class="list-group list-group-flush">
 
-                    <a href="#" class="list-group-item list-group-item-action">
-                        📱 Phones
-                    </a>
 
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a asp-area=""
+                       asp-controller="Products"
+                       asp-action="Index"
+                       asp-route-categoryId="1"
+                       class="list-group-item list-group-item-action">
                         💻 Laptops
                     </a>
 
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a asp-area=""
+                       asp-controller="Products"
+                       asp-action="Index"
+                       asp-route-categoryId="2"
+                       class="list-group-item list-group-item-action">
+                        📱 Mobiles
+                    </a>
+
+                    <a asp-area=""
+                       asp-controller="Products"
+                       asp-action="Index"
+                       asp-route-categoryId="3"
+                       class="list-group-item list-group-item-action">
+                        🖥 Accessories
+                    </a>
+
+                    <a asp-area=""
+                       asp-controller="Products"
+                       asp-action="Index"
+                       asp-route-categoryId="4"
+                       class="list-group-item list-group-item-action">
                         ⌚ Watches
                     </a>
 
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a asp-area=""
+                       asp-controller="Products"
+                       asp-action="Index"
+                       asp-route-categoryId="5"
+                       class="list-group-item list-group-item-action">
                         🎧 Headphones
                     </a>
 
-                    <a href="#" class="list-group-item list-group-item-action">
-                        🖥 Accessories
-                    </a>
 
                 </div>
 
@@ -135,7 +157,7 @@
                         </small>
 
                         <h4 class="text-success mt-3">
-                            @item.Price.ToString("N0") تومان
+                            @item.Price.ToString("N0") IRR
                         </h4>
 
                         <div class="mt-auto">

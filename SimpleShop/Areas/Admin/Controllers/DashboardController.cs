@@ -20,7 +20,7 @@ public class DashboardController : Controller
     {
         var productCount = await _context.Products.CountAsync();
 
-        var categoryCount = await _context.Categories.CountAsync();
+        var categoryCount = await _context.Category.CountAsync();
 
         var userCount = await _context.Users.CountAsync();
 

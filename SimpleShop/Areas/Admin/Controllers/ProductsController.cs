@@ -41,7 +41,7 @@ public class ProductsController : Controller
     {
         var viewModel = new CreateProductViewModel();
 
-        viewModel.Categories = await _context.Categories
+        viewModel.Categories = await _context.Category
             .Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
@@ -49,7 +49,7 @@ public class ProductsController : Controller
             })
             .ToListAsync();
 
-        var categories = await _context.Categories.ToListAsync();
+        var categories = await _context.Category.ToListAsync();
 
         var count = categories.Count;
 
@@ -62,7 +62,7 @@ public class ProductsController : Controller
     {
         if (!ModelState.IsValid)
         {
-            viewModel.Categories = await _context.Categories
+            viewModel.Categories = await _context.Category
                 .Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
@@ -140,7 +140,7 @@ public class ProductsController : Controller
         }
 
         ViewBag.Categories = new SelectList(
-            await _context.Categories.ToListAsync(),
+            await _context.Category.ToListAsync(),
             "Id",
             "Name",
             product.CategoryId
@@ -165,7 +165,7 @@ public class ProductsController : Controller
         if (!ModelState.IsValid)
         {
             ViewBag.Categories = new SelectList(
-                await _context.Categories.ToListAsync(),
+                await _context.Category.ToListAsync(),
                 "Id",
                 "Name",
                 product.CategoryId

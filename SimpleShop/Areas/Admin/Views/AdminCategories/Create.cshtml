@@ -1,0 +1,74 @@
+﻿@model SimpleShop.Models.Entities.Category
+
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<div class="container-fluid">
+
+    <h2 class="mb-4">
+        Create Category
+    </h2>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <form asp-area="Admin"
+                  asp-controller="AdminCategories"
+                  asp-action="Create"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+
+                    <label asp-for="Name"
+                           class="form-label">
+
+                        Category Name
+
+                    </label>
+
+                    <input asp-for="Name"
+                           class="form-control" />
+
+                    <span asp-validation-for="Name"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-success">
+
+                    Create
+
+                </button>
+
+                <a asp-area="Admin"
+                   asp-controller="AdminCategories"
+                   asp-action="Index"
+                   class="btn btn-secondary">
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync(
+            "_ValidationScriptsPartial"
+        );
+    }
+
+}

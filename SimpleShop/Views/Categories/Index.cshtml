@@ -1,35 +1,72 @@
 ﻿@model IEnumerable<SimpleShop.Models.Entities.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Categories";
 }
 
-<h1>Index</h1>
+<div class="container py-5">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold display-5">
+            Shop by Category
+        </h1>
+
+        <p class="text-muted fs-5">
+            Explore our products by category
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        @foreach (var category in Model)
+        {
+            var icon = category.Name.ToLower() switch
+            {
+                        "mobile" => "📱",
+                        "laptop" => "💻",
+                        "accessories" => "🎒",
+                        "watch" => "⌚",
+                        "headphone" => "🎧",
+                _ => "🛍️"
+            };
+
+            <div class="col-sm-6 col-lg-4">
+
+                <a asp-controller="Products"
+                   asp-action="Index"
+                   asp-route-categoryId="@category.Id"
+                   class="text-decoration-none text-dark">
+
+                    <div class="category-card">
+
+                        <div class="category-icon">
+
+                            @icon
+
+                        </div>
+
+                        <h3 class="category-name">
+
+                            @category.Name
+
+                        </h3>
+
+                        <span class="category-link">
+
+                            Explore Products
+                            <i class="bi bi-arrow-right"></i>
+
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+        }
+
+    </div>
+
+</div>
